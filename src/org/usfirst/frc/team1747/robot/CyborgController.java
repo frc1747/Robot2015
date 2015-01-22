@@ -35,9 +35,9 @@ public class CyborgController {
 
 
 	//D-PAD == HAT
-			//TRIGGERS == Z-AXIS
+	//TRIGGERS == Z-AXIS
 
-			Joystick controller;
+	Joystick controller;
 	JoystickButton buttonA, buttonB, buttonX, buttonY;
 	JoystickButton leftBumper, rightBumper, leftTrigger, rightTrigger;
 	JoystickButton leftJoystickPress, rightJoystickPress;
