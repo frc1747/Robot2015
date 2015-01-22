@@ -9,18 +9,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Robot extends IterativeRobot {
 
-	public static OI oi;
+	private static OI oi;
 
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
     public void robotInit() {
 		oi = new OI();
-        // instantiate the command used for the autonomous period
     }
 	
 	public void disabledPeriodic() {
+		oi.getCyborg().logToSmartDashboard();
 		Scheduler.getInstance().run();
 	}
 
@@ -30,6 +26,7 @@ public class Robot extends IterativeRobot {
 
 
     public void autonomousPeriodic() {
+    	oi.getCyborg().logToSmartDashboard();
         Scheduler.getInstance().run();
     }
 
@@ -49,6 +46,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	oi.getCyborg().logToSmartDashboard();
         Scheduler.getInstance().run();
     }
     
@@ -56,6 +54,11 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+    	oi.getCyborg().logToSmartDashboard();
         LiveWindow.run();
+    }
+    
+    public static OI getOI(){
+    	return oi;
     }
 }
