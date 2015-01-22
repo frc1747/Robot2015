@@ -83,6 +83,10 @@ public class CyborgController {
 		return -controller.getRawAxis(TRIGGER_AXIS);
 	}
 
+	public int getDPad(){
+		return controller.getPOV();
+	}
+
 	public JoystickButton getButtonA() {
 		return buttonA;
 	}
@@ -150,5 +154,6 @@ public class CyborgController {
 		SmartDashboard.putNumber("Right Joystick X", getRightHoriz());
 		SmartDashboard.putNumber("Right Joystick Y", getRightVert());
 		SmartDashboard.putNumber("Trigger Axis", getTriggerAxis());
+		SmartDashboard.putNumber("D-Pad", getDPad());
 	}
 }
