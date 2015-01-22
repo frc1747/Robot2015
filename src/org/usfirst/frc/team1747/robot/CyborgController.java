@@ -32,11 +32,6 @@ public class CyborgController {
 
 	public static final int FPS_BUTTON=13;
 
-
-
-	//D-PAD == HAT
-	//TRIGGERS == Z-AXIS
-
 	Joystick controller;
 	JoystickButton buttonA, buttonB, buttonX, buttonY;
 	JoystickButton leftBumper, rightBumper, leftTrigger, rightTrigger;
@@ -58,9 +53,6 @@ public class CyborgController {
 		fpsButton = new JoystickButton(controller, FPS_BUTTON);
 		backButton = new JoystickButton(controller, BACK_BUTTON);
 		startButton = new JoystickButton(controller, START_BUTTON);
-
-		//controller.getPOV();
-
 	}
 
 	public double getLeftVert() {
