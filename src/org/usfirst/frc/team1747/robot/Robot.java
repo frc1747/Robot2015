@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team1747.robot;
 
+import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -10,9 +12,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	private static OI oi;
+	private static DriveTrain drive;
 
     public void robotInit() {
 		oi = new OI();
+		drive = new DriveTrain();
     }
 	
 	public void disabledPeriodic() {
