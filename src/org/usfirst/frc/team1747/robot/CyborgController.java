@@ -68,6 +68,14 @@ public class CyborgController {
 	public double getRightHoriz() {
 		return controller.getRawAxis(RIGHT_JOY_HORIZ_AXIS);
 	}
+	
+	public double getLeftAngleRad(){
+		return Math.atan(this.getLeftVert()/this.getLeftHoriz());
+	}
+	
+	public double getRightAngleRad(){
+		return Math.atan(this.getRightVert()/this.getRightHoriz());
+	}
 
 	public int getDPad(){
 		return controller.getPOV();

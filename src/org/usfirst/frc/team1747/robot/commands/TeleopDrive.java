@@ -20,7 +20,7 @@ public class TeleopDrive extends Command {
     }
 
     protected void execute() {
-    	drive.hDrive(cyborg.getLeftHoriz(), cyborg.getLeftVert(),cyborg.getRightHoriz());
+    	drive.hDrive(cyborg.getLeftHoriz(), cyborg.getLeftVert(),cyborg.getRightHoriz(), cyborg.getLeftAngleRad());
     }
 
     protected boolean isFinished() {

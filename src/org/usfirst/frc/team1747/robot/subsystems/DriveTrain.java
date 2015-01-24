@@ -30,17 +30,44 @@ public class DriveTrain extends Subsystem {
     	rightMiniCim.set(rightSpeed);
     }
 
-    public void hDrive(double xAxis, double yAxis, double rotate){
+    public void hDrive(double xAxis, double yAxis, double rotate, double angle){
     	double centerCurrent = xAxis;
-    	//TODO Adjust y currents for extra force that y doesn't have
-    	// it will (hopefully) work by dividing the angle by the nearest
-    	// 90 degree angle w.r.t to the x-axis
     	double leftCurrent = yAxis - rotate;
     	double rightCurrent = yAxis + rotate;
+    	/* double leftCurrent, rightCurrent;
+    	double centerCurrent = xAxis;
+    	if((angle>0 && angle<=(Math.PI/4))||((angle>=(3*Math.PI/4))&&(angle<Math.PI))){
+    		leftCurrent=0.5*yAxis;
+    		rightCurrent=leftCurrent;
+    	} else if((angle>(Math.PI/4) && angle<=(Math.PI/2 - 0.729727655))||((angle>=(Math.PI/2 + 0.729727655))&&(angle<(3*Math.PI/4)))){
+    		leftCurrent = 0.5*Math.tan(angle)*yAxis;
+    		rightCurrent = leftCurrent;
+    	} else if((angle>(Math.PI/2 - 0.729727655) && angle<(Math.PI/2 + 0.729727655))){
+    		leftCurrent = yAxis;
+    		rightCurrent = leftCurrent;
+    	} else if(angle>Math.PI){
+    		-hDrive(xAxis, yAxis, rotate, angle-Math.PI);
+    	}
+    	leftCurrent -= rotate;
+    	rightCurrent += rotate; */
+    	 /*centerCurrent = xAxis;
+    	 double gaussianInput=angleToGaussianInput(Math.atan2(yAxis, xAxis));
+    	 leftCurrent =gaussianConversion(gaussianInput)+rotate;
+    	 rightCurrent=leftCurrent-rotate;*/
     	setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
     }
     
-    public void initDefaultCommand() {
+    private double gaussianConversion(double gaussianInput) {
+		return Math.exp(Math.pow(gaussianInput, 2)/(-.18));
+	}
+
+	private double angleToGaussianInput(double rad) {
+		if(rad>Math.PI)
+			rad-=Math.PI;
+		return (rad-Math.PI/2.0)/(Math.PI/2.0);
+	}
+
+	public void initDefaultCommand() {
     	setDefaultCommand(new TeleopDrive());
     }
 }
