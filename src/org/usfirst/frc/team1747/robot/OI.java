@@ -6,7 +6,7 @@ package org.usfirst.frc.team1747.robot;
  */
 public class OI {
 	
-    CyborgController cyborg;
+    private CyborgController cyborg;
     
     public OI(){
     	cyborg=new CyborgController(0);

@@ -1,13 +1,11 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.commands.TeleopDrive;
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class DriveTrain extends Subsystem {
     
 	CANJaguar leftCim, leftMiniCim;
@@ -43,5 +41,6 @@ public class DriveTrain extends Subsystem {
     }
     
     public void initDefaultCommand() {
+    	setDefaultCommand(new TeleopDrive());
     }
 }
