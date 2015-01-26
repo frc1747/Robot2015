@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CyborgController {
+public class PrecisionCyborgController {
 
 	public static final int LEFT_JOY_HORIZ_AXIS = 0;
 	public static final int LEFT_JOY_VERT_AXIS = 1;
@@ -36,7 +36,7 @@ public class CyborgController {
 	JoystickButton leftJoystickPress, rightJoystickPress;
 	JoystickButton fpsButton, backButton, startButton;
 
-	public CyborgController(int portNum) {
+	public PrecisionCyborgController(int portNum) {
 		controller = new Joystick(portNum);
 		buttonSquare = new JoystickButton(controller, JOY_SQUARE_BUTTON);
 		buttonTriangle = new JoystickButton(controller, JOY_TRIANGLE_BUTTON);
@@ -67,6 +67,14 @@ public class CyborgController {
 
 	public double getRightHoriz() {
 		return controller.getRawAxis(RIGHT_JOY_HORIZ_AXIS);
+	}
+	
+	public double getLeftAngleRad(){
+		return Math.atan(this.getLeftVert()/this.getLeftHoriz());
+	}
+	
+	public double getRightAngleRad(){
+		return Math.atan(this.getRightVert()/this.getRightHoriz());
 	}
 
 	public int getDPad(){
@@ -119,6 +127,10 @@ public class CyborgController {
 
 	public JoystickButton getStartButton() {
 		return startButton;
+	}
+	
+	public void setRumble(){
+		
 	}
 
 	public void logToSmartDashboard(){
