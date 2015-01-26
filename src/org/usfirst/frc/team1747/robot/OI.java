@@ -6,13 +6,13 @@ package org.usfirst.frc.team1747.robot;
  */
 public class OI {
 	
-    private CyborgController cyborg;
+    private PrecisionCyborgController cyborg;
     
     public OI(){
-    	cyborg=new CyborgController(0);
+    	cyborg=new PrecisionCyborgController(0);
     }
 
-	public CyborgController getCyborg() {
+	public PrecisionCyborgController getCyborg() {
 		return cyborg;
 	}
     

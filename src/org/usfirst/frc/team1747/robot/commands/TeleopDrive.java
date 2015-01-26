@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands;
 
-import org.usfirst.frc.team1747.robot.CyborgController;
+import org.usfirst.frc.team1747.robot.PrecisionCyborgController;
 import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleopDrive extends Command {
 
 	DriveTrain drive;
-	CyborgController cyborg;
+	PrecisionCyborgController cyborg;
 	
     public TeleopDrive() {
     	this.drive=Robot.getDrive();
