@@ -153,6 +153,7 @@ public class PrecisionCyborgController {
 		SmartDashboard.putNumber("Left Joystick Y", getLeftVert());
 		SmartDashboard.putNumber("Right Joystick X", getRightHoriz());
 		SmartDashboard.putNumber("Right Joystick Y", getRightVert());
+		SmartDashboard.putNumber("Trigger Axis", getTriggerAxis());
 		SmartDashboard.putNumber("D-Pad", getDPad());
 	}
 }

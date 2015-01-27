@@ -29,7 +29,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
+        //Scheduler.getInstance().run();
+    	drive.setLeftMiddleRightMotor(.5, 0, .5);
         sd.refresh();
     }
 
