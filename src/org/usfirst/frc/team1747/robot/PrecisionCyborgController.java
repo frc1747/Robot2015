@@ -10,8 +10,10 @@ public class PrecisionCyborgController {
 	public static final int LEFT_JOY_VERT_AXIS = 1;
 
 	public static final int RIGHT_JOY_HORIZ_AXIS = 2;
-	public static final int RIGHT_JOY_VERT_AXIS = 3;
+	public static final int RIGHT_JOY_VERT_AXIS = 4;
 
+	public static final int TRIGGER_AXIS=3;
+	
 	public static final int JOY_SQUARE_BUTTON = 1;
 	public static final int JOY_X_BUTTON = 2;
 	public static final int JOY_CIRCLE_BUTTON = 3;
@@ -67,6 +69,10 @@ public class PrecisionCyborgController {
 
 	public double getRightHoriz() {
 		return controller.getRawAxis(RIGHT_JOY_HORIZ_AXIS);
+	}
+	
+	public double getTriggerAxis(){
+		return -controller.getRawAxis(TRIGGER_AXIS);
 	}
 	
 	public double getLeftAngleRad(){
@@ -127,10 +133,6 @@ public class PrecisionCyborgController {
 
 	public JoystickButton getStartButton() {
 		return startButton;
-	}
-	
-	public void setRumble(){
-		
 	}
 
 	public void logToSmartDashboard(){

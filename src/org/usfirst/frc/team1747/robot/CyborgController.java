@@ -9,13 +9,15 @@ public class CyborgController {
 	public static final int LEFT_JOY_HORIZ_AXIS = 0;
 	public static final int LEFT_JOY_VERT_AXIS = 1;
 
-	public static final int RIGHT_JOY_HORIZ_AXIS = 2;
-	public static final int RIGHT_JOY_VERT_AXIS = 3;
+	public static final int TRIGGER_AXIS = 2;
 
-	public static final int JOY_SQUARE_BUTTON = 1;
-	public static final int JOY_X_BUTTON = 2;
-	public static final int JOY_CIRCLE_BUTTON = 3;
-	public static final int JOY_TRIANGLE_BUTTON = 4;
+	public static final int RIGHT_JOY_HORIZ_AXIS = 3;
+	public static final int RIGHT_JOY_VERT_AXIS = 4;
+
+	public static final int JOY_X_BUTTON = 1;
+	public static final int JOY_A_BUTTON = 2;
+	public static final int JOY_B_BUTTON = 3;
+	public static final int JOY_Y_BUTTON = 4;
 
 	public static final int JOY_LEFT_BUMPER = 5;
 	public static final int JOY_RIGHT_BUMPER = 6;
@@ -31,17 +33,17 @@ public class CyborgController {
 	public static final int FPS_BUTTON=13;
 
 	Joystick controller;
-	JoystickButton buttonX, buttonCircle, buttonSquare, buttonTriangle;
+	JoystickButton buttonA, buttonB, buttonX, buttonY;
 	JoystickButton leftBumper, rightBumper, leftTrigger, rightTrigger;
 	JoystickButton leftJoystickPress, rightJoystickPress;
 	JoystickButton fpsButton, backButton, startButton;
 
 	public CyborgController(int portNum) {
 		controller = new Joystick(portNum);
-		buttonSquare = new JoystickButton(controller, JOY_SQUARE_BUTTON);
-		buttonTriangle = new JoystickButton(controller, JOY_TRIANGLE_BUTTON);
 		buttonX = new JoystickButton(controller, JOY_X_BUTTON);
-		buttonCircle = new JoystickButton(controller, JOY_CIRCLE_BUTTON);
+		buttonY = new JoystickButton(controller, JOY_Y_BUTTON);
+		buttonA = new JoystickButton(controller, JOY_A_BUTTON);
+		buttonB = new JoystickButton(controller, JOY_B_BUTTON);
 		leftBumper=new JoystickButton(controller,JOY_LEFT_BUMPER);
 		rightBumper = new JoystickButton(controller, JOY_RIGHT_BUMPER);
 		leftTrigger = new JoystickButton(controller, TRIGGER_LEFT_BUTTON);
@@ -69,24 +71,28 @@ public class CyborgController {
 		return controller.getRawAxis(RIGHT_JOY_HORIZ_AXIS);
 	}
 
+	public double getTriggerAxis(){
+		return -controller.getRawAxis(TRIGGER_AXIS);
+	}
+
 	public int getDPad(){
 		return controller.getPOV();
 	}
 
-	public JoystickButton getButtonSquare() {
-		return buttonSquare;
+	public JoystickButton getButtonA() {
+		return buttonA;
 	}
 
-	public JoystickButton getButtonCircle() {
-		return buttonCircle;
+	public JoystickButton getButtonB() {
+		return buttonB;
 	}
 
 	public JoystickButton getButtonX() {
 		return buttonX;
 	}
 
-	public JoystickButton getButtonTriangle() {
-		return buttonTriangle;
+	public JoystickButton getButtonY() {
+		return buttonY;
 	}
 
 	public JoystickButton getLeftBumper() {
@@ -122,10 +128,10 @@ public class CyborgController {
 	}
 
 	public void logToSmartDashboard(){
+		SmartDashboard.putBoolean("A Button",buttonA.get());
+		SmartDashboard.putBoolean("B Button",buttonB.get());
 		SmartDashboard.putBoolean("X Button",buttonX.get());
-		SmartDashboard.putBoolean("Circle Button",buttonCircle.get());
-		SmartDashboard.putBoolean("Square Button",buttonSquare.get());
-		SmartDashboard.putBoolean("Triangle Button",buttonTriangle.get());
+		SmartDashboard.putBoolean("Y Button",buttonY.get());
 		SmartDashboard.putBoolean("Left Bumper", leftBumper.get());
 		SmartDashboard.putBoolean("Right Bumper", rightBumper.get());
 		SmartDashboard.putBoolean("Left Trigger", leftTrigger.get());
@@ -139,6 +145,7 @@ public class CyborgController {
 		SmartDashboard.putNumber("Left Joystick Y", getLeftVert());
 		SmartDashboard.putNumber("Right Joystick X", getRightHoriz());
 		SmartDashboard.putNumber("Right Joystick Y", getRightVert());
+		SmartDashboard.putNumber("Trigger Axis", getTriggerAxis());
 		SmartDashboard.putNumber("D-Pad", getDPad());
 	}
 }
