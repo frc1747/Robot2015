@@ -10,6 +10,11 @@ public class SDController {
 	public SDController(){
 		cyborg=Robot.getOI().getCyborg();
 		 SmartDashboard.putData(Scheduler.getInstance());
+		 SmartDashboard.putNumber("Dampening Constant", .6);
+	}
+	
+	public double getDampeningConstant(){
+		return SmartDashboard.getNumber("Dampening Constant");
 	}
 	
 	public void refresh(){
