@@ -1,7 +1,11 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
+import org.usfirst.frc.team1747.robot.Robot;
+
 import org.usfirst.frc.team1747.robot.RobotMap;
+import org.usfirst.frc.team1747.robot.SDController;
 import org.usfirst.frc.team1747.robot.commands.TeleopDrive;
+import org.usfirst.frc.team1747.robot.subsystems.DriveTrain.DriveSmoother;
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -12,6 +16,7 @@ public class DriveTrain extends Subsystem {
 	CANTalon leftCim, leftMiniCim;
 	CANTalon rightCim, rightMiniCim;
 	CANTalon centerCim, centerMiniCim;
+	DriveSmoother driveSmoother;
 	private static final double d45 = Math.PI/4;
 	private static final double d90 = Math.PI/2;
 	private static final double d135 = 3*Math.PI/4;
@@ -67,7 +72,57 @@ public class DriveTrain extends Subsystem {
     	 double gaussianInput=angleToGaussianInput(Math.atan2(yAxis, xAxis));
     	 leftCurrent =gaussianConversion(gaussianInput)+rotate;
     	 rightCurrent=leftCurrent-rotate;*/
-		setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
+		//setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
+		double[] calculatedValues=driveSmoother.calculateSmoothenedValues(leftCurrent,centerCurrent, rightCurrent);
+		setLeftMiddleRightMotor(calculatedValues[0] ,calculatedValues[1] ,calculatedValues[2]);
+	}
+	
+static class DriveSmoother{
+		
+		static final double[] SIGMOIDSTRETCH = {0.0, 0.03, 0.06, 0.09, 0.1, 0.11, 0.12, 
+	        0.11, 0.1, 0.09, 0.06, 0.03, 0.0};
+	    double[] leftTargetDeltas = new double[SIGMOIDSTRETCH.length];
+	    double[] rightTargetDeltas = new double[SIGMOIDSTRETCH.length];
+	    double[] centerTargetDeltas = new double[SIGMOIDSTRETCH.length];
+	    double pLeftCurrent, pRightCurrent, pCenterCurrent, prevLeftTarget, prevRightTarget, prevCenterTarget;
+	    SDController sd;
+	    
+		public DriveSmoother(){
+	        for(int j = 0; j < SIGMOIDSTRETCH.length; j++){
+	            leftTargetDeltas[j] = 0.0;
+	            rightTargetDeltas[j] = 0.0;
+	            centerTargetDeltas[j] = 0.0;
+	        }
+	        prevLeftTarget = 0.0;
+	        prevRightTarget = 0.0;
+	        prevCenterTarget = 0.0;
+	        pLeftCurrent = 0.0;
+	        pRightCurrent = 0.0;
+	        pCenterCurrent = 0.0;
+	        this.sd=Robot.getSD();
+		}
+		
+		public double[] calculateSmoothenedValues(double targetLeftCurrent, double targetCenterCurrent, double targetRightCurrent){
+
+	        for(int i = leftTargetDeltas.length-1; i > 0; i--){
+	            leftTargetDeltas[i] = leftTargetDeltas[i-1];
+	            rightTargetDeltas[i] = rightTargetDeltas[i-1];
+	            centerTargetDeltas[i] = centerTargetDeltas[i-1];
+	        }
+	        leftTargetDeltas[0] = targetLeftCurrent - prevLeftTarget;
+	        rightTargetDeltas[0] = targetRightCurrent - prevRightTarget;
+	        centerTargetDeltas[0] = targetCenterCurrent - prevCenterTarget;
+	        prevLeftTarget = targetLeftCurrent;
+	        prevRightTarget = targetRightCurrent;      
+	        for(int i = 0; i< SIGMOIDSTRETCH.length; i++){
+	            pLeftCurrent += leftTargetDeltas[i]*SIGMOIDSTRETCH[i];
+	            pRightCurrent += rightTargetDeltas[i]*SIGMOIDSTRETCH[i];
+	            pCenterCurrent += centerTargetDeltas[i]*SIGMOIDSTRETCH[i];
+	        }
+	        double damper=sd.getDampeningConstant();
+	        return new double[]{pLeftCurrent * damper, pCenterCurrent * damper, pRightCurrent * damper};
+	        //return new double[]{pLeftCurrent, pCenterCurrent, pRightCurrent};
+		}
 	}
 
 	private double gaussianConversion(double gaussianInput) {
