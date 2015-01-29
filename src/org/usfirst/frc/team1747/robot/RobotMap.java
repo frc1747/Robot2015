@@ -13,4 +13,6 @@ public class RobotMap {
 	public static final int ELELVATOR_CIM_LEFT=31;
 	public static final int ELELVATOR_CIM_MIDDLE=32;
 	public static final int ELELVATOR_CIM_RIGHT=33;
+	
+	public static final int ELEVATOR_CIM_BRAKE=41;
 }
