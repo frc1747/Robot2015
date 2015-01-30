@@ -5,18 +5,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CyborgController extends Cyborg{
 
-	public static final int LEFT_JOY_HORIZ_AXIS = 0;
-	public static final int LEFT_JOY_VERT_AXIS = 1;
+	private static final int LEFT_JOY_HORIZ_AXIS = 0;
+	private static final int LEFT_JOY_VERT_AXIS = 1;
 
-	public static final int TRIGGER_AXIS = 2;
+	private static final int TRIGGER_AXIS = 2;
 
-	public static final int RIGHT_JOY_HORIZ_AXIS = 3;
-	public static final int RIGHT_JOY_VERT_AXIS = 4;
+	private static final int RIGHT_JOY_HORIZ_AXIS = 3;
+	private static final int RIGHT_JOY_VERT_AXIS = 4;
 
-	public static final int JOY_X_BUTTON = 1;
-	public static final int JOY_A_BUTTON = 2;
-	public static final int JOY_B_BUTTON = 3;
-	public static final int JOY_Y_BUTTON = 4;
+	private static final int JOY_X_BUTTON = 1;
+	private static final int JOY_A_BUTTON = 2;
+	private static final int JOY_B_BUTTON = 3;
+	private static final int JOY_Y_BUTTON = 4;
 
 	JoystickButton buttonA, buttonB, buttonX, buttonY;
 
