@@ -33,12 +33,13 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setLeftMiddleRightMotor(double leftSpeed, double middleSpeed, double rightSpeed){
-		leftCim.set(leftSpeed);
-		leftMiniCim.set(leftSpeed);
-		centerCim.set(middleSpeed);
-		centerMiniCim.set(middleSpeed);
-		rightCim.set(-rightSpeed);
-		rightMiniCim.set(-rightSpeed);
+		double[] calculatedValues=driveSmoother.calculateSmoothenedValues(leftSpeed,middleSpeed, rightSpeed);
+		leftCim.set(calculatedValues[0]);
+		leftMiniCim.set(calculatedValues[0]);
+		centerCim.set(calculatedValues[1]);
+		centerMiniCim.set(calculatedValues[1]);
+		rightCim.set(-calculatedValues[2]);
+		rightMiniCim.set(-calculatedValues[2]);
 	}
 
 	public void hDrive(double xAxis, double yAxis, double rotate){
@@ -73,9 +74,7 @@ public class DriveTrain extends Subsystem {
     	 double scaledGaussianOutput=yAxis*gaussianConversion(gaussianInput)
     	 leftCurrent =scaledGaussianOutput+rotate;
     	 rightCurrent=scaledGaussianOutput-rotate;*/
-		//setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
-		double[] calculatedValues=driveSmoother.calculateSmoothenedValues(leftCurrent,centerCurrent, rightCurrent);
-		setLeftMiddleRightMotor(calculatedValues[0] ,calculatedValues[1] ,calculatedValues[2]);
+		setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
 	}
 
 	private double gaussianConversion(double gaussianInput) {
