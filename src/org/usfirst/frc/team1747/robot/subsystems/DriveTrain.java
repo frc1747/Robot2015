@@ -70,8 +70,9 @@ public class DriveTrain extends Subsystem {
     	}*/
 		/*centerCurrent = xAxis;
     	 double gaussianInput=angleToGaussianInput(Math.atan2(yAxis, xAxis));
-    	 leftCurrent =gaussianConversion(gaussianInput)+rotate;
-    	 rightCurrent=leftCurrent-2*rotate;*/
+    	 double scaledGaussianOutput=yAxis*gaussianConversion(gaussianInput)
+    	 leftCurrent =scaledGaussianOutput+rotate;
+    	 rightCurrent=scaledGaussianOutput-rotate;*/
 		//setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
 		double[] calculatedValues=driveSmoother.calculateSmoothenedValues(leftCurrent,centerCurrent, rightCurrent);
 		setLeftMiddleRightMotor(calculatedValues[0] ,calculatedValues[1] ,calculatedValues[2]);
