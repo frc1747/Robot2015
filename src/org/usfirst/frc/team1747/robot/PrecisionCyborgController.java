@@ -48,10 +48,6 @@ public class PrecisionCyborgController extends Cyborg{
 		return -controller.getRawAxis(TRIGGER_AXIS);
 	}
 
-	public int getDPad(){
-		return controller.getPOV();
-	}
-
 	public JoystickButton getButtonOne() {
 		return buttonSquare;
 	}
