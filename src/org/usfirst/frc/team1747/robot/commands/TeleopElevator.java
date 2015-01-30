@@ -6,10 +6,8 @@ import org.usfirst.frc.team1747.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class TeleopElevator extends Command {
+
 	Elevator elevator;
 	
     public TeleopElevator() {
@@ -39,8 +37,4 @@ public class TeleopElevator extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-
-	
-
-	
 }
