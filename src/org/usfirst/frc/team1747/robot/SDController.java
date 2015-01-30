@@ -15,7 +15,21 @@ public class SDController {
 	
 	public double getDampeningConstant(){
 		return SmartDashboard.getNumber("Dampening Constant");
+		}
+	public double getElevatorP(){
+		return SmartDashboard.getNumber("Elevator P");
+		}
+	public double getElevatorI(){
+		return SmartDashboard.getNumber("Elevator I");
+		}
+	public double getElevatorD(){
+		return SmartDashboard.getNumber("Elevator D");
 	}
+	public double getElevatorF(){
+		return SmartDashboard.getNumber("Elevator F");
+	}
+	
+	
 	
 	public void refresh(){
 		cyborg.logToSmartDashboard();
