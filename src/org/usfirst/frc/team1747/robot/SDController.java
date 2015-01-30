@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SDController {
 	
-	private PrecisionCyborgController cyborg;
+	private Cyborg cyborg;
 	
 	public SDController(){
 		cyborg=Robot.getOI().getCyborg();

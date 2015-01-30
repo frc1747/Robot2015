@@ -1,18 +1,18 @@
 package org.usfirst.frc.team1747.robot.commands;
 
+import org.usfirst.frc.team1747.robot.Cyborg;
 import org.usfirst.frc.team1747.robot.PrecisionCyborgController;
 import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleopDrive extends Command {
 
 	DriveTrain drive;
-	PrecisionCyborgController cyborg;
 	
     public TeleopDrive() {
     	this.drive=Robot.getDrive();
-    	this.cyborg=Robot.getOI().getCyborg();
         requires(drive);
     }
 
@@ -20,7 +20,8 @@ public class TeleopDrive extends Command {
     }
 
     protected void execute() {
-    	drive.hDrive(cyborg.getLeftHoriz(), cyborg.getLeftVert(),cyborg.getRightHoriz(), cyborg.getLeftAngleRad());
+    	Cyborg cyborg=Robot.getOI().getCyborg();
+    	drive.hDrive(cyborg.getLeftHoriz(), cyborg.getLeftVert(),cyborg.getRightHoriz());
     }
 
     protected boolean isFinished() {

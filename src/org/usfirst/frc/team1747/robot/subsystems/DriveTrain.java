@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
 import org.usfirst.frc.team1747.robot.Robot;
-
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.SDController;
 import org.usfirst.frc.team1747.robot.commands.TeleopDrive;
@@ -42,12 +41,13 @@ public class DriveTrain extends Subsystem {
 		rightMiniCim.set(-rightSpeed);
 	}
 
-	public void hDrive(double xAxis, double yAxis, double rotate, double angle){
+	public void hDrive(double xAxis, double yAxis, double rotate){
 		double leftCurrent, centerCurrent, rightCurrent;
 		centerCurrent = xAxis;
 		leftCurrent = yAxis + rotate;
 		rightCurrent = yAxis - rotate;
-		/*if((0 <= angle && angle <= d45)||(d135 <= angle && angle <= d180)){
+		/*double angle =Math.atan(yAxis/xAxis);
+		  if((0 <= angle && angle <= d45)||(d135 <= angle && angle <= d180)){
     		leftCurrent=0.5*yAxis;
     		rightCurrent=leftCurrent;
     		leftCurrent -= rotate;
