@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1747.robot.subsystems;
 
 import org.usfirst.frc.team1747.robot.Robot;
-
 import org.usfirst.frc.team1747.robot.RobotMap;
 import org.usfirst.frc.team1747.robot.SDController;
 import org.usfirst.frc.team1747.robot.commands.TeleopDrive;
@@ -34,20 +33,22 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setLeftMiddleRightMotor(double leftSpeed, double middleSpeed, double rightSpeed){
-		leftCim.set(leftSpeed);
-		leftMiniCim.set(leftSpeed);
-		centerCim.set(middleSpeed);
-		centerMiniCim.set(middleSpeed);
-		rightCim.set(-rightSpeed);
-		rightMiniCim.set(-rightSpeed);
+		double[] calculatedValues=driveSmoother.calculateSmoothenedValues(leftSpeed,middleSpeed, rightSpeed);
+		leftCim.set(calculatedValues[0]);
+		leftMiniCim.set(calculatedValues[0]);
+		centerCim.set(calculatedValues[1]);
+		centerMiniCim.set(calculatedValues[1]);
+		rightCim.set(-calculatedValues[2]);
+		rightMiniCim.set(-calculatedValues[2]);
 	}
 
-	public void hDrive(double xAxis, double yAxis, double rotate, double angle){
+	public void hDrive(double xAxis, double yAxis, double rotate){
 		double leftCurrent, centerCurrent, rightCurrent;
 		centerCurrent = xAxis;
 		leftCurrent = yAxis + rotate;
 		rightCurrent = yAxis - rotate;
-		/*if((0 <= angle && angle <= d45)||(d135 <= angle && angle <= d180)){
+		/*double angle =Math.atan(yAxis/xAxis);
+		  if((0 <= angle && angle <= d45)||(d135 <= angle && angle <= d180)){
     		leftCurrent=0.5*yAxis;
     		rightCurrent=leftCurrent;
     		leftCurrent -= rotate;
@@ -70,11 +71,10 @@ public class DriveTrain extends Subsystem {
     	}*/
 		/*centerCurrent = xAxis;
     	 double gaussianInput=angleToGaussianInput(Math.atan2(yAxis, xAxis));
-    	 leftCurrent =gaussianConversion(gaussianInput)+rotate;
-    	 rightCurrent=leftCurrent-2*rotate;*/
-		//setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
-		double[] calculatedValues=driveSmoother.calculateSmoothenedValues(leftCurrent,centerCurrent, rightCurrent);
-		setLeftMiddleRightMotor(calculatedValues[0] ,calculatedValues[1] ,calculatedValues[2]);
+    	 double scaledGaussianOutput=yAxis*gaussianConversion(gaussianInput)
+    	 leftCurrent =scaledGaussianOutput+rotate;
+    	 rightCurrent=scaledGaussianOutput-rotate;*/
+		setLeftMiddleRightMotor(leftCurrent ,centerCurrent ,rightCurrent);
 	}
 
 	private double gaussianConversion(double gaussianInput) {

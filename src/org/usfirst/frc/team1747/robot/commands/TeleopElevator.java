@@ -1,24 +1,17 @@
 package org.usfirst.frc.team1747.robot.commands;
 
-import org.usfirst.frc.team1747.robot.PrecisionCyborgController;
+import org.usfirst.frc.team1747.robot.Cyborg;
 import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.Elevator;
 
-import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class TeleopElevator extends Command {
 
 	Elevator elevator;
-	PrecisionCyborgController cyborg;
-
 	
 	public TeleopElevator() {
 		elevator = Robot.getElevator();
-		cyborg=Robot.getOI().getCyborg();
 		requires(elevator);
 	}
 
@@ -28,9 +21,10 @@ public class TeleopElevator extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(cyborg.getButtonX().get()){
+		Cyborg cyborg=Robot.getOI().getCyborg();
+		if(cyborg.getButtonTwo().get()){
 			elevator.elevatorDown();
-		}else if(cyborg.getButtonTriangle().get()){
+		}else if(cyborg.getButtonFour().get()){
 			elevator.elevatorUp();
 		}else{
 			elevator.elevatorStop();
