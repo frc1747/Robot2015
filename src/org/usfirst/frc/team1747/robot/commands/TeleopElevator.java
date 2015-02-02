@@ -29,6 +29,7 @@ public class TeleopElevator extends Command {
 		}else{
 			elevator.elevatorStop();
 		}
+		elevator.updatePID();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

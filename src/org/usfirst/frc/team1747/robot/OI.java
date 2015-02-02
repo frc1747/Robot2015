@@ -1,5 +1,8 @@
 package org.usfirst.frc.team1747.robot;
 
+import org.usfirst.frc.team1747.robot.commands.DecreaseElevatorLevel;
+import org.usfirst.frc.team1747.robot.commands.IncreaseElevatorLevel;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,6 +21,11 @@ public class OI {
 		cyborgChooser.addObject("Precision Cyborg", false);
 		SmartDashboard.putData("Cyborg Version",cyborgChooser);
 		cyborg=new CyborgController(0);
+	}
+	
+	public void init(){
+		cyborg.getButtonTwo().whenPressed(new DecreaseElevatorLevel());
+		cyborg.getButtonFour().whenPressed(new IncreaseElevatorLevel());
 	}
 	
 	private boolean isNormalCyborg(){
