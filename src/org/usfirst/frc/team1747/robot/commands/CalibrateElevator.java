@@ -4,9 +4,10 @@ import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CalibrateElevator extends Command {
-
+	
 	Elevator elevator;
 	
 	public CalibrateElevator(){
@@ -15,10 +16,11 @@ public class CalibrateElevator extends Command {
 	}
 	
 	protected void initialize() {
+		elevator.disablePID();
 	}
 
 	protected void execute() {
-		elevator.elevatorDown();
+		elevator.manualElevatorDown();
 	}
 
 	protected boolean isFinished() {
@@ -26,7 +28,7 @@ public class CalibrateElevator extends Command {
 	}
 
 	protected void end() {
-		elevator.resetPIDController();
+		elevator.enablePID();
 	}
 
 	protected void interrupted() {

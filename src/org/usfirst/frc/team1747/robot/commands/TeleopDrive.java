@@ -21,7 +21,7 @@ public class TeleopDrive extends Command {
 
     protected void execute() {
     	Cyborg cyborg=Robot.getOI().getCyborg();
-    	drive.hDrive(cyborg.getLeftHoriz(), cyborg.getLeftVert(),cyborg.getRightHoriz());
+    	drive.hDrive(Math.pow(cyborg.getLeftHoriz(),3), Math.pow(cyborg.getLeftVert(),3),Math.pow(cyborg.getRightHoriz(),3));
     }
 
     protected boolean isFinished() {

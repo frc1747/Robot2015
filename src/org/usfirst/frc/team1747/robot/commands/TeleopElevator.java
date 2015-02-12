@@ -9,40 +9,36 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TeleopElevator extends Command {
 
 	Elevator elevator;
-	
+
 	public TeleopElevator() {
 		elevator = Robot.getElevator();
 		requires(elevator);
+		
 	}
 
-	// Called just before this Command runs the first time
 	protected void initialize() {
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Cyborg cyborg=Robot.getOI().getCyborg();
-		if(cyborg.getButtonTwo().get()){
-			elevator.elevatorDown();
-		}else if(cyborg.getButtonFour().get()){
-			elevator.elevatorUp();
-		}else{
-			elevator.elevatorStop();
+		Cyborg cyborg = Robot.getOI().getCyborg();
+		elevator.logToSmartDashboard();
+		if (cyborg.getButtonTwo().get()) {
+			elevator.manualElevatorDown();
+		} else if (cyborg.getButtonFour().get()) {
+			elevator.manualElevatorUp();
+		} else {
+			elevator.manualElevatorStop();
 		}
-		elevator.updatePID();
+		
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return false;
 	}
 
-	// Called once after isFinished returns true
 	protected void end() {
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
 	}
 }

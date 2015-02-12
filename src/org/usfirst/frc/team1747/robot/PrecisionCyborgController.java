@@ -66,10 +66,10 @@ public class PrecisionCyborgController extends Cyborg{
 
 	public void logToSmartDashboard(){
 		super.logToSmartDashboard();
-		SmartDashboard.putBoolean("X Button",buttonX.get());
-		SmartDashboard.putBoolean("Circle Button",buttonCircle.get());
-		SmartDashboard.putBoolean("Square Button",buttonSquare.get());
-		SmartDashboard.putBoolean("Triangle Button",buttonTriangle.get());
+		SmartDashboard.putBoolean("Button One",buttonSquare.get());
+		SmartDashboard.putBoolean("Button Two",buttonX.get());
+		SmartDashboard.putBoolean("Button Three",buttonCircle.get());
+		SmartDashboard.putBoolean("Button Four",buttonTriangle.get());
 		SmartDashboard.putNumber("Left Joystick X", getLeftHoriz());
 		SmartDashboard.putNumber("Left Joystick Y", getLeftVert());
 		SmartDashboard.putNumber("Right Joystick X", getRightHoriz());

@@ -1,38 +1,47 @@
 package org.usfirst.frc.team1747.robot;
 
+import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1747.robot.subsystems.Elevator;
+
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SDController {
 
-	private Cyborg cyborg;
+	private OI oi;
+	private Elevator elevator;
+	private DriveTrain driveTrain;
 
-	public SDController(){
-		cyborg=Robot.getOI().getCyborg();
+	public SDController() {
+		oi = Robot.getOI();
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putNumber("Dampening Constant", .6);
-		SmartDashboard.putNumber("Elevator P", 0);
-		SmartDashboard.putNumber("Elevator I", 0);
-		SmartDashboard.putNumber("Elevator D", 0);
 	}
 
-	public double getDampeningConstant(){
+	public void init() {
+		elevator = Robot.getElevator();
+		driveTrain = Robot.getDrive();
+	}
+
+	public double getDampeningConstant() {
 		return SmartDashboard.getNumber("Dampening Constant");
 	}
 
-	public double getElevatorP(){
+	public double getElevatorP() {
 		return SmartDashboard.getNumber("Elevator P");
 	}
 
-	public double getElevatorI(){
+	public double getElevatorI() {
 		return SmartDashboard.getNumber("Elevator I");
 	}
 
-	public double getElevatorD(){
+	public double getElevatorD() {
 		return SmartDashboard.getNumber("Elevator D");
 	}
 
-	public void refresh(){
-		cyborg.logToSmartDashboard();
+	public void refresh() {
+		oi.getCyborg().logToSmartDashboard();
+		elevator.logToSmartDashboard();
+		driveTrain.logToSmartDashboard();
 	}
 }

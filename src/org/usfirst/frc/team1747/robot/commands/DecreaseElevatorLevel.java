@@ -15,14 +15,15 @@ public class DecreaseElevatorLevel extends Command {
 	}
 
 	protected void initialize() {
-	}
-
-	protected void execute() {
 		elevator.decreaseElevatorLevel();
 	}
 
+	protected void execute() {
+		elevator.updateSlaveJags();
+	}
+
 	protected boolean isFinished() {
-		return true;
+		return elevator.isDoneMoving();
 	}
 
 	protected void end() {
