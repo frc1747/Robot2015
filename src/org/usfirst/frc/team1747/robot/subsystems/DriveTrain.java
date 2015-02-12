@@ -48,6 +48,7 @@ public class DriveTrain extends Subsystem {
 		rightData = new double[2];
 		pidData = new double[2];
 		gyro = new GyroITG3200(I2C.Port.kMXP);
+		gyro.initialize();
 		// driveSmoother=new DriveSmoother();
 	}
 
