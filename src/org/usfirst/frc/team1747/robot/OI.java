@@ -1,7 +1,14 @@
 package org.usfirst.frc.team1747.robot;
 
+import org.usfirst.frc.team1747.robot.commands.BumpDown;
+import org.usfirst.frc.team1747.robot.commands.BumpUp;
+import org.usfirst.frc.team1747.robot.commands.CalibrateElevator;
 import org.usfirst.frc.team1747.robot.commands.DecreaseElevatorLevel;
+import org.usfirst.frc.team1747.robot.commands.DriveStraight;
 import org.usfirst.frc.team1747.robot.commands.IncreaseElevatorLevel;
+import org.usfirst.frc.team1747.robot.commands.StopElevator;
+import org.usfirst.frc.team1747.robot.commands.ToggleSpeed;
+import org.usfirst.frc.team1747.robot.commands.Turn;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,8 +29,11 @@ public class OI {
 	public void init() {
 		cyborg.getLeftTrigger().whenPressed(new DecreaseElevatorLevel());
 		cyborg.getRightTrigger().whenPressed(new IncreaseElevatorLevel());
-		// cyborg.getButtonTwo().whenPressed(new DecreaseElevatorLevel());
-		// cyborg.getButtonFour().whenPressed(new IncreaseElevatorLevel());
+		cyborg.getLeftBumper().whenPressed(new BumpDown());
+		cyborg.getRightBumper().whenPressed(new BumpUp());
+		cyborg.getStartButton().whenPressed(new CalibrateElevator());
+		cyborg.getBackButton().whenPressed(new ToggleSpeed());
+		cyborg.getButtonOne().whenPressed(new StopElevator());
 	}
 
 	private boolean isNormalCyborg() {

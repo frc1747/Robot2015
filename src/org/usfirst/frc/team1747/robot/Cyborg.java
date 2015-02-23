@@ -70,6 +70,10 @@ public abstract class Cyborg {
 		return startButton;
 	}
 	
+	public JoystickButton getBackButton() {
+		return backButton;
+	}
+	
 	public int getDPad(){
 		return controller.getPOV();
 	}

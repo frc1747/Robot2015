@@ -1,9 +1,9 @@
 package org.usfirst.frc.team1747.robot;
 
 import org.usfirst.frc.team1747.robot.commands.AutonCommands;
+import org.usfirst.frc.team1747.robot.commands.CalibrateElevator;
 import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1747.robot.subsystems.Elevator;
-
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -27,9 +27,12 @@ public class Robot extends IterativeRobot {
 		drive = new DriveTrain();
 		elevator = new Elevator();
 		autonCommands = new AutonCommands();
-		// oi.init();
+		oi.init();
 		sd.init();
 		sd.refresh();
+		elevator.resetAccumulator();
+		elevator.resetBump();
+		elevator.resetPosition();
 	}
 
 	public void disabledPeriodic() {
@@ -38,6 +41,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		elevator.resetAccumulator();
+		elevator.resetBump();
+		elevator.resetPosition();
 		autonCommands.start();
 		sd.refresh();
 	}

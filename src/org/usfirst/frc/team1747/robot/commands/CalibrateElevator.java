@@ -16,11 +16,15 @@ public class CalibrateElevator extends Command {
 	}
 	
 	protected void initialize() {
-		elevator.disablePID();
+		elevator.resetAccumulator();
+		elevator.resetPosition();
+		elevator.disable();
 	}
 
 	protected void execute() {
-		elevator.manualElevatorDown();
+		if(!elevator.isAtLowerLimit()){
+			elevator.manualElevatorDown();
+		}
 	}
 
 	protected boolean isFinished() {
@@ -28,7 +32,9 @@ public class CalibrateElevator extends Command {
 	}
 
 	protected void end() {
-		elevator.enablePID();
+		elevator.resetAccumulator();
+		elevator.resetPosition();
+		elevator.enable();
 	}
 
 	protected void interrupted() {
