@@ -10,9 +10,6 @@ public class AdvancedAuto extends CommandGroup {
 	double distance2;
 	
     public  AdvancedAuto() {
-    	SmartDashboard.putNumber("Angle 1", 25);
-    	SmartDashboard.putNumber("Distance 1", 0.35);//Measured in Carls  //3/3.125
-    	SmartDashboard.putNumber("Distance 2", 3.3/3.125);
     	angle1 = SmartDashboard.getNumber("Angle 1");
     	distance1 = SmartDashboard.getNumber("Distance 1");
     	distance2 = SmartDashboard.getNumber("Distance 2");

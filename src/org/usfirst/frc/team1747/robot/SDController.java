@@ -16,6 +16,9 @@ public class SDController {
 		oi = Robot.getOI();
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putNumber("Dampening Constant", .6);
+		SmartDashboard.putNumber("Angle 1", 25);
+    	SmartDashboard.putNumber("Distance 1", 0.35);//Measured in Carls  //3/3.125
+    	SmartDashboard.putNumber("Distance 2", 3.3/3.125);
 	}
 
 	public void init() {
