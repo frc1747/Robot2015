@@ -83,7 +83,7 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	private double voltCorrection() {
-		return 14/elevatorMotorOne.getBusVoltage();
+		return 14 / elevatorMotorOne.getBusVoltage();
 	}
 
 	public boolean isDoneMoving() {
@@ -248,21 +248,25 @@ public class Elevator extends PIDSubsystem {
 		currentPosition = 0;
 		moveToLevel();
 	}
-	
+
 	public double getOffset() {
 		return 0.5;
 	}
-	
-	public void resetBump(){
+
+	public void resetBump() {
 		bump = 0;
 	}
-	
-	public void bumpUp(){
+
+	public void bumpUp() {
 		bump += 8;
 		moveToLevel();
 	}
-	public void bumpDown(){
-		bump -= 8;
-		moveToLevel();
+
+	public void bumpDown() {
+		//Prevents negative setpoints
+		if ((getPosition() - 8) > 0) {
+			bump -= 8;
+			moveToLevel();
+		}
 	}
 }
