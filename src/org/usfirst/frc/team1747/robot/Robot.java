@@ -1,14 +1,16 @@
 package org.usfirst.frc.team1747.robot;
 
-import org.usfirst.frc.team1747.robot.commands.AutonCommands;
-import org.usfirst.frc.team1747.robot.commands.CalibrateElevator;
+import org.usfirst.frc.team1747.robot.commands.AdvancedAuto;
+import org.usfirst.frc.team1747.robot.commands.SimpleAuto;
 import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1747.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
@@ -16,17 +18,18 @@ public class Robot extends IterativeRobot {
 	private static SDController sd;
 	private static DriveTrain drive;
 	private static Elevator elevator;
-	private AutonCommands autonCommands;
-	private static double time;
-	private static double pTime;
-	private static double dTime;
+	private CommandGroup autoCommand;
+	private SendableChooser autoChooser;
 
 	public void robotInit() {
 		oi = new OI();
 		sd = new SDController();
 		drive = new DriveTrain();
 		elevator = new Elevator();
-		autonCommands = new AutonCommands();
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Simple Auto", true);
+		autoChooser.addObject("Advanced Auto", false);
+		SmartDashboard.putData("Autonomous Mode", autoChooser);
 		oi.init();
 		sd.init();
 		sd.refresh();
@@ -44,7 +47,11 @@ public class Robot extends IterativeRobot {
 		elevator.resetAccumulator();
 		elevator.resetBump();
 		elevator.resetPosition();
-		autonCommands.start();
+		if ((boolean) autoChooser.getSelected())
+			autoCommand = new SimpleAuto();
+		else
+			autoCommand = new AdvancedAuto();
+		autoCommand.start();
 		sd.refresh();
 	}
 
@@ -86,6 +93,5 @@ public class Robot extends IterativeRobot {
 	public static Elevator getElevator() {
 		return elevator;
 	}
-	
 
 }

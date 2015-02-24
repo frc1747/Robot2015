@@ -6,6 +6,7 @@ import org.usfirst.frc.team1747.robot.SDController;
 import org.usfirst.frc.team1747.robot.commands.TeleopDrive;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,6 +34,7 @@ public class DriveTrain extends Subsystem {
 		centerMiniCim = new CANTalon(RobotMap.CENTER_MINI_CIM_ID);
 		rightMiniCim = new CANTalon(RobotMap.RIGHT_MINI_CIM_ID);
 		rightCim = new CANTalon(RobotMap.RIGHT_CIM_ID);
+		leftCim.changeControlMode(ControlMode.Current);
 		SmartDashboard.putNumber("Turn Damper", 0.5);
 		turnDamper = SmartDashboard.getNumber("Turn Damper");
 		SmartDashboard.putNumber("Drive Damper", 1);

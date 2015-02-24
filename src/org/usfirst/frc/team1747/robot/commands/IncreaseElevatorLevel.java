@@ -17,7 +17,6 @@ public class IncreaseElevatorLevel extends Command {
 	protected void initialize() {
 		elevator.resetBump();
 		elevator.increaseElevatorLevel();
-		System.err.println("Starting Lift Up");
 	}
 
 	protected void execute() {

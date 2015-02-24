@@ -4,7 +4,6 @@ import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Turn extends Command {
 
@@ -25,7 +24,7 @@ public class Turn extends Command {
 	}
 
 	protected void execute() {
-		drive.hDrive(0, 0, speed * ((angle - drive.getAngle()) < 0 ? -1 : 1));
+		drive.hDrive(0, 0, speed * ((angle - drive.getAngle()) < 0.0 ? -1.0 : 1.0));
 	}
 
 	protected boolean isFinished() {

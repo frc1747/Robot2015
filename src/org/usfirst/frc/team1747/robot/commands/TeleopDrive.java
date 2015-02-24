@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1747.robot.commands;
 
 import org.usfirst.frc.team1747.robot.Cyborg;
-import org.usfirst.frc.team1747.robot.PrecisionCyborgController;
 import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.DriveTrain;
 
@@ -31,7 +30,6 @@ public class TeleopDrive extends Command {
     		drive.resetAngle();
         	storedPositionRight = drive.getRightPosition();
         	storedPositionLeft = drive.getLeftPosition();
-        	
     	}
     }
 

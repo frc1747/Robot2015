@@ -4,7 +4,6 @@ import org.usfirst.frc.team1747.robot.Robot;
 import org.usfirst.frc.team1747.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CalibrateElevator extends Command {
 	
@@ -32,6 +31,7 @@ public class CalibrateElevator extends Command {
 	}
 
 	protected void end() {
+		elevator.manualElevatorStop();
 		elevator.resetAccumulator();
 		elevator.resetPosition();
 		elevator.enable();
