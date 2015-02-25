@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveStraight extends Command {
+public class Strafe extends Command {
 
 	DriveTrain drive;
 	double distance;
@@ -15,7 +15,7 @@ public class DriveStraight extends Command {
 	double time;
 	double direction;
 
-	public DriveStraight(double distance) {
+	public Strafe(double distance) {
 		drive = Robot.getDrive();
 		requires(drive);
 		this.distance = distance;
@@ -30,9 +30,9 @@ public class DriveStraight extends Command {
 
 	protected void execute() {
 		SmartDashboard.putNumber("Straight Pos", currPos);
-		drive.hDrive(0, direction * 0.5, -(drive.getAngle() / 50.0));
-		currPos += (((drive.getLeftSpeed() + drive.getRightSpeed()) / 2.0) * (Timer
-				.getFPGATimestamp() - time));
+		drive.hDrive(direction * 0.5, 0, -(drive.getAngle() / 50.0));
+		currPos += ((drive.getMiddleSpeed() * (Timer
+				.getFPGATimestamp() - time)));
 		time = Timer.getFPGATimestamp();
 	}
 

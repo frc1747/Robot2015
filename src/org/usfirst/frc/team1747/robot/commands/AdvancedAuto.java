@@ -4,43 +4,36 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AdvancedAuto extends CommandGroup {
-	
-	double angle1;
-	double distance1;
-	double distance2;
-	
-    public  AdvancedAuto() {
-    	angle1 = SmartDashboard.getNumber("Angle 1");
-    	distance1 = SmartDashboard.getNumber("Distance 1");
-    	distance2 = SmartDashboard.getNumber("Distance 2");
-    	addSequential(new CalibrateElevator());
-    	addSequential(new BumpUp());
-    	addSequential(new Turn(angle1, 0.2));
-    	addSequential(new DriveStraight(distance1));
-    	addSequential(new Turn(angle1 * -2.5, 0.2)); //Speed with container = 0.3
-    	addSequential(new Turn(angle1 * 0.5, 0.2));
-    	addSequential(new Wait(0.05));
-    	addSequential(new IncreaseElevatorLevel());
-    	addSequential(new IncreaseElevatorLevel());
-    	addSequential(new DriveStraight(distance1+0.27));
-    	addSequential(new Turn(angle1*0.74, 0.2));
-    	addSequential(new Wait(0.16));
-    	addSequential(new DriveStraight(distance1*2.87));
-    	addSequential(new Wait(0.15));
-    	/*SmartDashboard.putNumber("Angle 1", 30);
-    	SmartDashboard.putNumber("Distance 1", 1.2);//3/3.125
-    	SmartDashboard.putNumber("Distance 2", 3.3/3.125);
-    	angle1 = SmartDashboard.getNumber("Angle 1");
-    	distance1 = SmartDashboard.getNumber("Distance 1");
-    	distance2 = SmartDashboard.getNumber("Distance 2");
-    	 * 
-    	 * addSequential(new IncreaseElevatorLevel());
-        addSequential(new Turn(angle1));
-        addSequential(new DriveStraight(distance1));
-        addSequential(new Turn((angle1 * -2)));
-        addSequential(new DriveStraight(distance1 - 0.2));
-        //addSequential(new Turn(angle1));
-        //addSequential(new DriveStraight(distance2/3));
-        */
-    }
+
+	public AdvancedAuto() {
+		addSequential(new CalibrateElevator());
+
+		addSequential(new IncreaseElevatorLevel(1));
+		// You have tote 1
+		addSequential(new Strafe(0.65));
+		addSequential(new DriveStraight(1.5));
+		addSequential(new Wait(0.5));
+		addSequential(new Strafe(-1.0)); // Go left to line up with next tote
+		addSequential(new DriveStraight(0.85));
+		addSequential(new Wait(0.3));
+		addSequential(new DriveStraight(0.07));
+		addSequential(new Wait(3.0));
+		addSequential(new CalibrateElevator());
+		addSequential(new IncreaseElevatorLevel(1));
+		// You have tote 2
+		addSequential(new Strafe(0.65));
+		addSequential(new DriveStraight(1.5));
+		addSequential(new Wait(0.5));
+		addSequential(new Strafe(-1.0)); // Go left to line up with next tote
+		addSequential(new DriveStraight(0.85));
+		addSequential(new Wait(0.3));
+		addSequential(new DriveStraight(0.07));
+		addSequential(new Wait(3.0));
+		addSequential(new CalibrateElevator());
+		addSequential(new IncreaseElevatorLevel(1));
+		// You have tote3
+		addSequential(new Strafe(6));
+		addSequential(new DecreaseElevatorLevel());
+		addSequential(new DriveStraight(-0.5)); //Stop. Hammer Time!
+	}
 }

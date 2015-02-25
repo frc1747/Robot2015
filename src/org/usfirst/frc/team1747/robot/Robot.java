@@ -33,9 +33,6 @@ public class Robot extends IterativeRobot {
 		oi.init();
 		sd.init();
 		sd.refresh();
-		elevator.resetAccumulator();
-		elevator.resetBump();
-		elevator.resetPosition();
 	}
 
 	public void disabledPeriodic() {

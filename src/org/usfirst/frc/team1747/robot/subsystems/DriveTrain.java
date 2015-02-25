@@ -6,7 +6,6 @@ import org.usfirst.frc.team1747.robot.SDController;
 import org.usfirst.frc.team1747.robot.commands.TeleopDrive;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,10 +15,10 @@ public class DriveTrain extends Subsystem {
 	CANTalon leftCim, leftMiniCim;
 	CANTalon rightCim, rightMiniCim;
 	CANTalon centerCim, centerMiniCim;
-	
+
 	double turnDamper;
 	double driveDamper;
-	
+
 	// DriveSmoother driveSmoother;
 	Gyro gyro;
 
@@ -34,7 +33,6 @@ public class DriveTrain extends Subsystem {
 		centerMiniCim = new CANTalon(RobotMap.CENTER_MINI_CIM_ID);
 		rightMiniCim = new CANTalon(RobotMap.RIGHT_MINI_CIM_ID);
 		rightCim = new CANTalon(RobotMap.RIGHT_CIM_ID);
-		leftCim.changeControlMode(ControlMode.Current);
 		SmartDashboard.putNumber("Turn Damper", 0.5);
 		turnDamper = SmartDashboard.getNumber("Turn Damper");
 		SmartDashboard.putNumber("Drive Damper", 1);
@@ -49,7 +47,7 @@ public class DriveTrain extends Subsystem {
 		leftCim.set(leftSpeed * voltCorrection());
 		leftMiniCim.set(leftSpeed * voltCorrection());
 		centerCim.set(middleSpeed * voltCorrection());
-		centerMiniCim.set(middleSpeed * voltCorrection()); 
+		centerMiniCim.set(middleSpeed * voltCorrection());
 		rightCim.set(-rightSpeed * voltCorrection());
 		rightMiniCim.set(-rightSpeed * voltCorrection());
 	}
@@ -59,9 +57,6 @@ public class DriveTrain extends Subsystem {
 		centerCurrent = xAxis * driveDamper;
 		leftCurrent = (yAxis + (rotate * turnDamper) * driveDamper);
 		rightCurrent = (yAxis - (rotate * turnDamper) * driveDamper);
-		SmartDashboard.putNumber("Left Speed", getLeftSpeed());
-		SmartDashboard.putNumber("Middle Speed", getMiddleSpeed());
-		SmartDashboard.putNumber("Right Speed", getRightSpeed());
 		setLeftMiddleRightMotor(leftCurrent, centerCurrent, rightCurrent);
 	}
 
@@ -80,16 +75,16 @@ public class DriveTrain extends Subsystem {
 	public double getMiddleSpeed() {
 		return centerMiniCim.getSpeed() * ENCODER_CONVERSION_CONSTANT;
 	}
-	
-	public double getLeftPosition(){
+
+	public double getLeftPosition() {
 		return leftMiniCim.getEncPosition();
 	}
-	
-	public double getMiddlePosition(){
+
+	public double getMiddlePosition() {
 		return centerMiniCim.getEncPosition();
 	}
-	
-	public double getRightPosition(){
+
+	public double getRightPosition() {
 		return -rightMiniCim.getEncPosition();
 	}
 
@@ -166,8 +161,13 @@ public class DriveTrain extends Subsystem {
 	public double getRate() {
 		return gyro.getRate();
 	}
+
+	public double voltCorrection() {
+		return 1.0;
+	}
 	
-	public double voltCorrection(){
-		return 14/leftCim.getBusVoltage();
+	public void setSpeedDampener(double speedDampener){
+		SmartDashboard.putNumber("Drive Damper", speedDampener);
+		driveDamper = speedDampener;
 	}
 }

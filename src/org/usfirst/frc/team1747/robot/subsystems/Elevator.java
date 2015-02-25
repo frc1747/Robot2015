@@ -246,7 +246,6 @@ public class Elevator extends PIDSubsystem {
 
 	public void resetPosition() {
 		currentPosition = 0;
-		moveToLevel();
 	}
 
 	public double getOffset() {
