@@ -44,12 +44,12 @@ public class DriveTrain extends Subsystem {
 
 	public void setLeftMiddleRightMotor(double leftSpeed, double middleSpeed,
 			double rightSpeed) {
-		leftCim.set(leftSpeed * voltCorrection());
-		leftMiniCim.set(leftSpeed * voltCorrection());
-		centerCim.set(middleSpeed * voltCorrection());
-		centerMiniCim.set(middleSpeed * voltCorrection());
-		rightCim.set(-rightSpeed * voltCorrection());
-		rightMiniCim.set(-rightSpeed * voltCorrection());
+		leftCim.set(leftSpeed * leftVoltSmoothing());
+		leftMiniCim.set(leftSpeed * leftVoltSmoothing());
+		centerCim.set(middleSpeed * centerVoltSmoothing());
+		centerMiniCim.set(middleSpeed * centerVoltSmoothing());
+		rightCim.set(-rightSpeed * rightVoltSmoothing());
+		rightMiniCim.set(-rightSpeed * rightVoltSmoothing());
 	}
 
 	public void hDrive(double xAxis, double yAxis, double rotate) {
@@ -162,8 +162,16 @@ public class DriveTrain extends Subsystem {
 		return gyro.getRate();
 	}
 
-	public double voltCorrection() {
-		return 1.0;
+	public double leftVoltSmoothing() {
+		return 28.0/(leftCim.getBusVoltage()+leftMiniCim.getBusVoltage());
+	}
+	
+	public double centerVoltSmoothing(){
+		return 28.0/(centerCim.getBusVoltage()+centerMiniCim.getBusVoltage());
+	}
+	
+	public double rightVoltSmoothing(){
+		return 28.0/(rightCim.getBusVoltage()+rightMiniCim.getBusVoltage());
 	}
 	
 	public void setSpeedDampener(double speedDampener){

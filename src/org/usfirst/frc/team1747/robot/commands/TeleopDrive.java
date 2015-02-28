@@ -22,37 +22,21 @@ public class TeleopDrive extends Command {
 
 	protected void execute() {
 		Cyborg cyborg = Robot.getOI().getCyborg();
+		double damper = 1;
+		if (cyborg.getLeftBumper().get()) {
+			damper *= 2.0 / 3.0;
+		}
+		if (cyborg.getRightBumper().get()) {
+			damper *= 1.0 / 3.0;
+		}
 		if (cyborg.getLeftTrigger().get()) {
 			drive.hDrive(-.5, 0, 0);
 		} else if (cyborg.getRightTrigger().get()) {
 			drive.hDrive(.5, 0, 0);
-		} else if (cyborg.getLeftBumper().get()
-				&& cyborg.getRightBumper().get()) {
-			drive.hDrive(Math.pow(cyborg.getLeftHoriz(), 3) * 2.0 / 9.0,
-					Math.pow(cyborg.getLeftVert(), 3) * 2.0 / 9.0,
-					Math.pow(cyborg.getRightHoriz(), 3) * 2.0 / 9.0);
-		} else if (cyborg.getLeftBumper().get()) {
-			drive.hDrive(Math.pow(cyborg.getLeftHoriz(), 3) * 2.0 / 3.0,
-					Math.pow(cyborg.getLeftVert(), 3) * 2.0 / 3.0,
-					Math.pow(cyborg.getRightHoriz(), 3) * 2.0 / 3.0);
-		} else if (cyborg.getRightBumper().get()) {
-			drive.hDrive(Math.pow(cyborg.getLeftHoriz(), 3) * 1.0 / 3.0,
-					Math.pow(cyborg.getLeftVert(), 3) * 1.0 / 3.0,
-					Math.pow(cyborg.getRightHoriz(), 3) * 1.0 / 3.0);
 		} else {
-			drive.hDrive(Math.pow(cyborg.getLeftHoriz(), 3),
-					Math.pow(cyborg.getLeftVert(), 3),
-					Math.pow(cyborg.getRightHoriz(), 3));
-		}
-		if (cyborg.getLeftBumper().get()) {
-			System.out.println("Angle = " + drive.getAngle());
-			System.out.println("Right Position = "
-					+ (drive.getRightPosition() - storedPositionRight));
-			System.out.println("Left Position = "
-					+ (drive.getLeftPosition() - storedPositionLeft));
-			drive.resetAngle();
-			storedPositionRight = drive.getRightPosition();
-			storedPositionLeft = drive.getLeftPosition();
+			drive.hDrive(Math.pow(cyborg.getLeftHoriz(), 3) * damper,
+					Math.pow(cyborg.getLeftVert(), 3) * damper,
+					Math.pow(cyborg.getRightHoriz(), 3) * damper);
 		}
 	}
 

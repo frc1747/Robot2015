@@ -26,20 +26,24 @@ public class Elevator extends PIDSubsystem {
 	private double pDistance;
 
 	private boolean changePID = false;
-	private double bump = 0;
 
 	private Encoder encoder;
 	private static final double ENCODER_CONVERSION = (1.806 * Math.PI / 256.0 * (21.0 / 22.0));
 
-	private int currentPosition = 0;
+	private int currentPosition;
 	private static final double TOTE_HEIGHT = 12.75;
-	private static final double OFFSET = 4;
-	private static final double POSITION_ZERO = 0;
-	private static final double POSITION_ONE = 1 * TOTE_HEIGHT + OFFSET;
-	private static final double POSITION_TWO = 2 * TOTE_HEIGHT + OFFSET;
-	private static final double POSITION_THREE = 3 * TOTE_HEIGHT + OFFSET;
-	private static final double POSITION_FOUR = 4 * TOTE_HEIGHT + OFFSET;
-	private static final double POSITION_FIVE = 5 * TOTE_HEIGHT + OFFSET;
+	private static final double OFFSET = 4.0;
+	private static final double POSITION_ZERO = 0.0;
+	private static final double POSITION_ONE = 0.5 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_TWO = 1.0 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_THREE = 1.5 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_FOUR = 2.0 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_FIVE = 2.5 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_SIX = 3.0 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_SEVEN = 3.5 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_EIGHT = 4.0 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_NINE = 4.5 * TOTE_HEIGHT + OFFSET;
+	private static final double POSITION_TEN = 5.0 * TOTE_HEIGHT + OFFSET;
 	private boolean isPIDEnabled = true;
 
 	public Elevator() {
@@ -123,22 +127,23 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	public void increaseElevatorLevel() {
-		currentPosition++;
+		currentPosition = currentPosition + 2;
 		System.out.println(currentPosition);
 		System.err.println("Current Position Incremented");
 		moveToLevel();
 	}
 
 	public void decreaseElevatorLevel() {
-		currentPosition--;
+		currentPosition = currentPosition - 2;
 		moveToLevel();
 	}
 
 	public void moveToLevel() {
 		switch (currentPosition) {
+		case -2:
 		case -1:
 			currentPosition = 0;
-			elevatorStop();
+			moveToLevel();
 			break;
 		case 0:
 			setLiftPosition(POSITION_ZERO);
@@ -159,7 +164,24 @@ public class Elevator extends PIDSubsystem {
 			setLiftPosition(POSITION_FIVE);
 			break;
 		case 6:
-			currentPosition = 5;
+			setLiftPosition(POSITION_SIX);
+			break;
+		case 7:
+			setLiftPosition(POSITION_SEVEN);
+			break;
+		case 8:
+			setLiftPosition(POSITION_EIGHT);
+			break;
+		case 9:
+			setLiftPosition(POSITION_NINE);
+			break;
+		case 10:
+			setLiftPosition(POSITION_TEN);
+			break;
+		case 11:
+		case 12:
+			currentPosition = 10;
+			moveToLevel();
 			break;
 		}
 	}
@@ -185,7 +207,7 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	public void setLiftPosition(double position) {
-		setSetpoint(position + bump);
+		setSetpoint(position);
 	}
 
 	public void logToSmartDashboard() {
@@ -197,11 +219,9 @@ public class Elevator extends PIDSubsystem {
 		SmartDashboard.putBoolean("Is Done Moving", isDoneMoving());
 		SmartDashboard.putNumber("Elevator Distance", getNetDistance());
 		SmartDashboard.putBoolean("Encoder Direction", encoder.getDirection());
-		SmartDashboard.putNumber("Bump", bump);
 		if (isAtLowerLimit() && !changePID) {
 			changePID = true;
 			resetAccumulator();
-			resetBump();
 			getPIDController().disable();
 			getPIDController().setPID(sd.getElevatorP(), sd.getElevatorI(),
 					sd.getElevatorD());
@@ -252,20 +272,13 @@ public class Elevator extends PIDSubsystem {
 		return 0.5;
 	}
 
-	public void resetBump() {
-		bump = 0;
-	}
-
 	public void bumpUp() {
-		bump += 8;
+		currentPosition++;
 		moveToLevel();
 	}
 
 	public void bumpDown() {
-		//Prevents negative setpoints
-		if ((getPosition() - 8) > 0) {
-			bump -= 8;
-			moveToLevel();
-		}
+		currentPosition--;
+		moveToLevel();
 	}
 }

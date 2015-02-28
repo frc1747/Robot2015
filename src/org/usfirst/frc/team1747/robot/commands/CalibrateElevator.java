@@ -34,6 +34,7 @@ public class CalibrateElevator extends Command {
 		elevator.manualElevatorStop();
 		elevator.resetAccumulator();
 		elevator.resetPosition();
+		elevator.moveToLevel();
 		elevator.enable();
 	}
 

@@ -30,7 +30,7 @@ public class Strafe extends Command {
 
 	protected void execute() {
 		SmartDashboard.putNumber("Straight Pos", currPos);
-		drive.hDrive(direction * 0.5, 0, -(drive.getAngle() / 50.0));
+		drive.hDrive(direction * 0.35, 0, -(drive.getAngle() / 50.0));
 		currPos += ((drive.getMiddleSpeed() * (Timer
 				.getFPGATimestamp() - time)));
 		time = Timer.getFPGATimestamp();

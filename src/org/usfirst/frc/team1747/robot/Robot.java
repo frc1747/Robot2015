@@ -42,7 +42,6 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		elevator.resetAccumulator();
-		elevator.resetBump();
 		elevator.resetPosition();
 		if ((boolean) autoChooser.getSelected())
 			autoCommand = new SimpleAuto();

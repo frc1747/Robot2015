@@ -30,7 +30,7 @@ public class DriveStraight extends Command {
 
 	protected void execute() {
 		SmartDashboard.putNumber("Straight Pos", currPos);
-		drive.hDrive(0, direction * 0.5, -(drive.getAngle() / 50.0));
+		drive.hDrive(0, direction * 0.35, -(drive.getAngle() / 50.0));
 		currPos += (((drive.getLeftSpeed() + drive.getRightSpeed()) / 2.0) * (Timer
 				.getFPGATimestamp() - time));
 		time = Timer.getFPGATimestamp();

@@ -15,7 +15,6 @@ public class DecreaseElevatorLevel extends Command {
 	}
 
 	protected void initialize() {
-		elevator.resetBump();
 		elevator.decreaseElevatorLevel();
 	}
 
