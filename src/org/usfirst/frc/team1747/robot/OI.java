@@ -6,6 +6,8 @@ import org.usfirst.frc.team1747.robot.commands.CalibrateElevator;
 import org.usfirst.frc.team1747.robot.commands.DecreaseElevatorLevel;
 import org.usfirst.frc.team1747.robot.commands.GetInfo;
 import org.usfirst.frc.team1747.robot.commands.IncreaseElevatorLevel;
+import org.usfirst.frc.team1747.robot.commands.ManualElevatorDown;
+import org.usfirst.frc.team1747.robot.commands.ManualElevatorUp;
 import org.usfirst.frc.team1747.robot.commands.StopElevator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,35 +18,30 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 
 	private SendableChooser cyborgChooser;
-	private Cyborg cyborg;
-	private Joystick opController;
-	private JoystickButton button1;
-	private JoystickButton button2;
-	private JoystickButton button3;
-	private JoystickButton button4;
+	private Cyborg drCyborg;
+	private Cyborg opCyborg;
 
 	public OI() {
 		cyborgChooser = new SendableChooser();
 		cyborgChooser.addDefault("Normal Cyborg", true);
 		cyborgChooser.addObject("Precision Cyborg", false);
-		SmartDashboard.putData("Cyborg Version", cyborgChooser);
-		cyborg = new CyborgController(0);
-		opController = new Joystick(1);
-		button1 = new JoystickButton(opController, 1);
-		button2 = new JoystickButton(opController, 2);
-		button3 = new JoystickButton(opController, 3);
-		button4 = new JoystickButton(opController, 4);
+		SmartDashboard.putData("Driver Cyborg Version", cyborgChooser);
+		drCyborg = new CyborgController(0);
+		opCyborg = new PrecisionCyborgController(1);
 	}
 
 	public void init() {
-		cyborg.getButtonOne().whenPressed(new DecreaseElevatorLevel());
-		cyborg.getButtonFour().whenPressed(new IncreaseElevatorLevel(0));
-		cyborg.getButtonTwo().whenPressed(new BumpDown());
-		cyborg.getButtonThree().whenPressed(new BumpUp());
-		cyborg.getBackButton().whenPressed(new CalibrateElevator());
-		cyborg.getButtonOne().whenPressed(new StopElevator());
-		button1.whenPressed(new CalibrateElevator());
-		button3.whenPressed(new GetInfo());
+		opCyborg.getLeftTrigger().whenPressed(new DecreaseElevatorLevel(0));
+		opCyborg.getRightTrigger().whenPressed(new IncreaseElevatorLevel(0));
+		opCyborg.getButtonTwo().whenPressed(new BumpDown());
+		opCyborg.getButtonThree().whenPressed(new BumpUp());
+		opCyborg.getBackButton().whenPressed(new CalibrateElevator());
+		opCyborg.getButtonOne().whenPressed(new StopElevator());
+		opCyborg.getLeftTrigger().whenPressed(new ManualElevatorDown());
+		opCyborg.getRightBumper().whenPressed(new ManualElevatorUp());
+		//Switch driver controllers that are suppose to be operator controls.
+		//Don't know if drive multiplies have been implemented, but they need to be.
+		//Adding manual up and down for elevator that will be put on the left and right bumpers
 	}
 
 	private boolean isNormalCyborg() {
@@ -52,14 +49,16 @@ public class OI {
 	}
 
 	public Cyborg getCyborg() {
-		if (cyborg instanceof CyborgController && !isNormalCyborg()) {
-			cyborg = new PrecisionCyborgController(0);
+		if (drCyborg instanceof CyborgController && !isNormalCyborg()) {
+			drCyborg = new PrecisionCyborgController(0);
+			opCyborg = new CyborgController(1);
 			init();
-		} else if (cyborg instanceof PrecisionCyborgController
+		} else if (drCyborg instanceof PrecisionCyborgController
 				&& isNormalCyborg()) {
-			cyborg = new CyborgController(0);
+			drCyborg = new CyborgController(0);
+			opCyborg = new PrecisionCyborgController(1);
 			init();
 		}
-		return cyborg;
+		return drCyborg;
 	}
 }

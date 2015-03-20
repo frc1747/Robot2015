@@ -5,27 +5,27 @@ import org.usfirst.frc.team1747.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DecreaseElevatorLevel extends Command {
-	
-	Elevator elevator;
-	long start = 0, waitTime = 0;
+public class ManualElevatorDown extends Command {
 
-	public DecreaseElevatorLevel(long waitTime) {
-		this.waitTime = waitTime*1000;
-		elevator=Robot.getElevator();
+	Elevator elevator;
+
+	public ManualElevatorDown() {
+		elevator = Robot.getElevator();
 		requires(elevator);
 	}
 
 	protected void initialize() {
-		elevator.decreaseElevatorLevel();
-		start = System.currentTimeMillis();
 	}
 
 	protected void execute() {
+		elevator.setSetpoint(elevator.getSetpoint()-0.1);
+		if((((double) elevator.getPosition())*6.375+4.0)>=elevator.getSetpoint()){
+			elevator.setCurrentPosition(-1);
+		}
 	}
 
 	protected boolean isFinished() {
-		return System.currentTimeMillis() - start > waitTime;
+		return true;
 	}
 
 	protected void end() {

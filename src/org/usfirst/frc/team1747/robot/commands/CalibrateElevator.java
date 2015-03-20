@@ -17,6 +17,7 @@ public class CalibrateElevator extends Command {
 	protected void initialize() {
 		elevator.resetAccumulator();
 		elevator.resetPosition();
+		elevator.setSetpoint(elevator.getPosition());
 		elevator.disable();
 	}
 

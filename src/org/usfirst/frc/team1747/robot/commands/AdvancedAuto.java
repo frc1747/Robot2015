@@ -11,10 +11,8 @@ public class AdvancedAuto extends CommandGroup {
 		addSequential(new IncreaseElevatorLevel(1));
 		addSequential(new Wait(1));
 		// You have tote 1
-		addSequential(new Strafe(0.65));
 		addSequential(new DriveStraight(1.5));
 		addSequential(new Wait(0.5));
-		addSequential(new Strafe(-0.96)); // Go left to line up with next tote
 		addSequential(new DriveStraight(0.91));
 		addSequential(new Wait(0.3));
 		addSequential(new DriveStraight(0.1));
@@ -22,10 +20,8 @@ public class AdvancedAuto extends CommandGroup {
 		addSequential(new CalibrateElevator());
 		addSequential(new IncreaseElevatorLevel(1));
 		// You have tote 2
-		addSequential(new Strafe(0.65));
 		addSequential(new DriveStraight(1.5));
 		addSequential(new Wait(0.5));
-		addSequential(new Strafe(-0.96)); // Go left to line up with next tote
 		addSequential(new DriveStraight(0.91));
 		addSequential(new Wait(0.3));
 		addSequential(new DriveStraight(0.1));
@@ -33,8 +29,7 @@ public class AdvancedAuto extends CommandGroup {
 		addSequential(new CalibrateElevator());
 		addSequential(new IncreaseElevatorLevel(1));
 		// You have tote3
-		addSequential(new Strafe(6));
-		addSequential(new DecreaseElevatorLevel());
+		addSequential(new DecreaseElevatorLevel(1));
 		addSequential(new DriveStraight(-0.5)); //Stop. Hammer Time!
 	}
 }

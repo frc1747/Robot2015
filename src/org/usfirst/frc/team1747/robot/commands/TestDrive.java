@@ -22,17 +22,13 @@ public class TestDrive extends Command {
     }
     
     protected void execute() {
-    	drive.hDrive(0, 0.9, 0);
+    	drive.arcadeDrive(0.9, 0);
     	Timer.delay(2);
-    	drive.hDrive(0, -0.9, 0);
+    	drive.arcadeDrive(-0.9, 0);
     	Timer.delay(2);
-    	drive.hDrive(0.9, 0, 0);
+    	drive.arcadeDrive(0, 0.9);
     	Timer.delay(2);
-    	drive.hDrive(-0.9, 0, 0);
-    	Timer.delay(2);
-    	drive.hDrive(0, 0, 0.9);
-    	Timer.delay(2);
-    	drive.hDrive(0, 0, -0.9);
+    	drive.arcadeDrive(0, -0.9);
     	Timer.delay(2);
     }
 

@@ -10,9 +10,9 @@ public class TestElevator extends CommandGroup {
 		this.addSequential(new IncreaseElevatorLevel(1));
 		this.addSequential(new IncreaseElevatorLevel(1));
 		this.addSequential(new IncreaseElevatorLevel(1));
-		this.addSequential(new DecreaseElevatorLevel());
-		this.addSequential(new DecreaseElevatorLevel());
-		this.addSequential(new DecreaseElevatorLevel());
-		this.addSequential(new DecreaseElevatorLevel());
+		this.addSequential(new DecreaseElevatorLevel(1));
+		this.addSequential(new DecreaseElevatorLevel(1));
+		this.addSequential(new DecreaseElevatorLevel(1));
+		this.addSequential(new DecreaseElevatorLevel(1));
 	}
 }

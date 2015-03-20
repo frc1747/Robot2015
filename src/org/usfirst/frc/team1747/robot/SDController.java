@@ -15,7 +15,7 @@ public class SDController {
 	public SDController() {
 		oi = Robot.getOI();
 		SmartDashboard.putData(Scheduler.getInstance());
-		SmartDashboard.putNumber("Dampening Constant", .6);
+		SmartDashboard.putNumber("Dampening Constant", .8);
 	}
 
 	public void init() {

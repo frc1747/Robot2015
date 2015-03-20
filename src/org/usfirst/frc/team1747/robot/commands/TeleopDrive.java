@@ -28,14 +28,8 @@ public class TeleopDrive extends Command {
 		}
 		if (cyborg.getRightBumper().get()) {
 			damper *= 1.0 / 3.0;
-		}
-		if (cyborg.getLeftTrigger().get()) {
-			drive.hDrive(-.5, 0, 0);
-		} else if (cyborg.getRightTrigger().get()) {
-			drive.hDrive(.5, 0, 0);
 		} else {
-			drive.hDrive(Math.pow(cyborg.getLeftHoriz(), 3) * damper,
-					Math.pow(cyborg.getLeftVert(), 3) * damper,
+			drive.arcadeDrive(Math.pow(cyborg.getLeftVert(), 3) * damper,
 					Math.pow(cyborg.getRightHoriz(), 3) * damper);
 		}
 	}

@@ -11,7 +11,7 @@ public class IncreaseElevatorLevel extends Command {
 	long start = 0, waitTime = 0;
 
 	public IncreaseElevatorLevel(long waitTime) {
-		this.waitTime = waitTime;
+		this.waitTime = waitTime*1000;
 		elevator = Robot.getElevator();
 		requires(elevator);
 	}

@@ -20,19 +20,17 @@ public class Turn extends Command {
 	}
 
 	protected void initialize() {
-		drive.resetAngle();
 	}
 
 	protected void execute() {
-		drive.hDrive(0, 0, speed * ((angle - drive.getAngle()) < 0.0 ? -1.0 : 1.0));
 	}
 
 	protected boolean isFinished() {
-		return (Math.abs(drive.getAngle() - angle) <= 1.0);
+		return true;
 	}
 
 	protected void end() {
-		drive.setLeftMiddleRightMotor(0, 0, 0);
+		drive.tankDrive(0, 0);
 	}
 
 	protected void interrupted() {

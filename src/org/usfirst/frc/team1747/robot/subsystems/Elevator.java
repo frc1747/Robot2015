@@ -28,7 +28,7 @@ public class Elevator extends PIDSubsystem {
 	private boolean changePID = false;
 
 	private Encoder encoder;
-	private static final double ENCODER_CONVERSION = (1.806 * Math.PI / 256.0 * (21.0 / 22.0));
+	private static final double ENCODER_CONVERSION = (1.806 * Math.PI / 256.0 * (12.0 / 22.0));
 
 	private int currentPosition;
 	private static final double TOTE_HEIGHT = 12.75;
@@ -66,9 +66,15 @@ public class Elevator extends PIDSubsystem {
 		currentPosition = 0;
 	}
 
+	public double getCurrentPosition() {
+		return currentPosition;
+	}
+	
+	public void setCurrentPosition(int changePosition){
+		currentPosition = currentPosition + changePosition;
+	}
+	
 	public double getSpeed() {
-		if (encoder == null)
-			return 0;
 		return encoder.getRate();
 	}
 
@@ -95,11 +101,11 @@ public class Elevator extends PIDSubsystem {
 	}
 
 	public void manualElevatorDown() {
-		setElevatorMotors(-.2);
+		setElevatorMotors(-.45);
 	}
 
 	public void manualElevatorUp() {
-		setElevatorMotors(.2);
+		setElevatorMotors(.45);
 	}
 
 	public void manualElevatorStop() {
@@ -125,7 +131,7 @@ public class Elevator extends PIDSubsystem {
 				&& !elevatorMotorTwo.getReverseLimitOK()
 				&& !elevatorMotorThree.getReverseLimitOK();
 	}
-
+	
 	public void increaseElevatorLevel() {
 		currentPosition = currentPosition + 2;
 		System.out.println(currentPosition);
@@ -183,6 +189,9 @@ public class Elevator extends PIDSubsystem {
 			currentPosition = 10;
 			moveToLevel();
 			break;
+		default:
+			System.out.println("Help! I Don't know where I am!!!");
+			break;
 		}
 	}
 
@@ -208,6 +217,7 @@ public class Elevator extends PIDSubsystem {
 
 	public void setLiftPosition(double position) {
 		setSetpoint(position);
+		SmartDashboard.putNumber("", getCurrentPosition());
 	}
 
 	public void logToSmartDashboard() {

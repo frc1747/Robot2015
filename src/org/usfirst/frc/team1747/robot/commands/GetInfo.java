@@ -25,12 +25,10 @@ public class GetInfo extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("Angle = " + drive.getAngle());
 		System.out.println("Right Position = "
 				+ (drive.getRightPosition() - storedPositionRight));
 		System.out.println("Left Position = "
 				+ (drive.getLeftPosition() - storedPositionLeft));
-		drive.resetAngle();
 		storedPositionRight = drive.getRightPosition();
 		storedPositionLeft = drive.getLeftPosition();
     }

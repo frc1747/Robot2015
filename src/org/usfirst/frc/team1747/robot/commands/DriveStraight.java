@@ -23,14 +23,12 @@ public class DriveStraight extends Command {
 	}
 
 	protected void initialize() {
-		drive.resetAngle();
 		currPos = 0;
 		time = Timer.getFPGATimestamp();
 	}
 
 	protected void execute() {
 		SmartDashboard.putNumber("Straight Pos", currPos);
-		drive.hDrive(0, direction * 0.35, -(drive.getAngle() / 50.0));
 		currPos += (((drive.getLeftSpeed() + drive.getRightSpeed()) / 2.0) * (Timer
 				.getFPGATimestamp() - time));
 		time = Timer.getFPGATimestamp();
@@ -41,7 +39,7 @@ public class DriveStraight extends Command {
 	}
 
 	protected void end() {
-		drive.setLeftMiddleRightMotor(0, 0, 0);
+		drive.tankDrive(0, 0);
 
 	}
 
