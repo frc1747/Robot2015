@@ -39,6 +39,9 @@ public class OI {
 		opCyborg.getButtonOne().whenPressed(new StopElevator());
 		opCyborg.getLeftTrigger().whenPressed(new ManualElevatorDown());
 		opCyborg.getRightBumper().whenPressed(new ManualElevatorUp());
+		drCyborg.getButtonTwo().whenPressed(new BumpDown());
+		drCyborg.getButtonThree().whenPressed(new BumpUp());
+		drCyborg.getBackButton().whenPressed(new CalibrateElevator());
 		//Switch driver controllers that are suppose to be operator controls.
 		//Don't know if drive multiplies have been implemented, but they need to be.
 		//Adding manual up and down for elevator that will be put on the left and right bumpers
