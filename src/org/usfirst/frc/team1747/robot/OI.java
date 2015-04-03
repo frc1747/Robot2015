@@ -4,10 +4,13 @@ import org.usfirst.frc.team1747.robot.commands.BumpDown;
 import org.usfirst.frc.team1747.robot.commands.BumpUp;
 import org.usfirst.frc.team1747.robot.commands.CalibrateElevator;
 import org.usfirst.frc.team1747.robot.commands.DecreaseElevatorLevel;
+import org.usfirst.frc.team1747.robot.commands.FeederCommand;
 import org.usfirst.frc.team1747.robot.commands.GetInfo;
 import org.usfirst.frc.team1747.robot.commands.IncreaseElevatorLevel;
 import org.usfirst.frc.team1747.robot.commands.ManualElevatorDown;
 import org.usfirst.frc.team1747.robot.commands.ManualElevatorUp;
+import org.usfirst.frc.team1747.robot.commands.Setpoint1Preset;
+import org.usfirst.frc.team1747.robot.commands.Setpoint2Preset;
 import org.usfirst.frc.team1747.robot.commands.StopElevator;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,8 +40,11 @@ public class OI {
 		opCyborg.getButtonThree().whenPressed(new BumpUp());
 		opCyborg.getBackButton().whenPressed(new CalibrateElevator());
 		opCyborg.getButtonOne().whenPressed(new StopElevator());
-		opCyborg.getLeftTrigger().whenPressed(new ManualElevatorDown());
-		opCyborg.getRightBumper().whenPressed(new ManualElevatorUp());
+		//opCyborg.getLeftTrigger().whenPressed(new ManualElevatorDown());
+		//opCyborg.getRightBumper().whenPressed(new ManualElevatorUp());
+		opCyborg.getButtonFour().whenPressed(new FeederCommand());
+		opCyborg.getLeftBumper().whenPressed(new Setpoint1Preset());
+		opCyborg.getRightBumper().whenPressed(new Setpoint2Preset());
 		drCyborg.getButtonTwo().whenPressed(new BumpDown());
 		drCyborg.getButtonThree().whenPressed(new BumpUp());
 		drCyborg.getBackButton().whenPressed(new CalibrateElevator());

@@ -24,7 +24,7 @@ public class TeleopDrive extends Command {
 		Cyborg cyborg = Robot.getOI().getCyborg();
 		double damper = 1;
 		if (cyborg.getLeftBumper().get()) {
-			damper *= 2.0 / 3.0;
+			damper *= 0.765;
 		}
 		if (cyborg.getRightBumper().get()) {
 			damper *= 1.0 / 3.0;

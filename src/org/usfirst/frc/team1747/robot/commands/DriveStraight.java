@@ -29,6 +29,7 @@ public class DriveStraight extends Command {
 
 	protected void execute() {
 		SmartDashboard.putNumber("Straight Pos", currPos);
+		drive.arcadeDrive(direction*0.4, 0);
 		currPos += (((drive.getLeftSpeed() + drive.getRightSpeed()) / 2.0) * (Timer
 				.getFPGATimestamp() - time));
 		time = Timer.getFPGATimestamp();

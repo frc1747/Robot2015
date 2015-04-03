@@ -26,6 +26,8 @@ public class Elevator extends PIDSubsystem {
 	private double pDistance;
 
 	private boolean changePID = false;
+	private static double prevOutput;
+	private static double motorChangeLim;
 
 	private Encoder encoder;
 	private static final double ENCODER_CONVERSION = (1.806 * Math.PI / 256.0 * (12.0 / 22.0));
@@ -64,9 +66,11 @@ public class Elevator extends PIDSubsystem {
 		SmartDashboard.putNumber("Elevator I", I);
 		SmartDashboard.putNumber("Elevator D", D);
 		currentPosition = 0;
+		prevOutput = 0;
+		motorChangeLim = 0.05;
 	}
 
-	public double getCurrentPosition() {
+	public int getCurrentPosition() {
 		return currentPosition;
 	}
 	
@@ -197,6 +201,8 @@ public class Elevator extends PIDSubsystem {
 
 	public double presetToPosition() {
 		switch (currentPosition) {
+		case -2:
+		case -1:
 		case 0:
 			return POSITION_ZERO;
 		case 1:
@@ -209,6 +215,18 @@ public class Elevator extends PIDSubsystem {
 			return POSITION_FOUR;
 		case 5:
 			return POSITION_FIVE;
+		case 6:
+			return POSITION_SIX;
+		case 7:
+			return POSITION_SEVEN;
+		case 8:
+			return POSITION_EIGHT;
+		case 9:
+			return POSITION_NINE;
+		case 10:
+		case 11:
+		case 12:
+			return POSITION_TEN;
 		default:
 			System.out.println("I DON'T KNOW WHERE I AM!!!!!!");
 			return getPosition();
@@ -259,7 +277,16 @@ public class Elevator extends PIDSubsystem {
 
 	protected void usePIDOutput(double output) {
 		if (isPIDEnabled)
-			setElevatorMotors(output);
+			//if((output - prevOutput) > motorChangeLim){
+				//setElevatorMotors(prevOutput + motorChangeLim);
+				//prevOutput = prevOutput+motorChangeLim;
+			//} else if((output-prevOutput) < motorChangeLim){
+				//setElevatorMotors(prevOutput - motorChangeLim);
+				//prevOutput = prevOutput-motorChangeLim;
+			//} else {
+				setElevatorMotors(output);
+				//prevOutput = output;
+			//}
 		SmartDashboard.putNumber("Elevator PID Output", output);
 	}
 
@@ -290,5 +317,9 @@ public class Elevator extends PIDSubsystem {
 	public void bumpDown() {
 		currentPosition--;
 		moveToLevel();
+	}
+	
+	public void setCurrentPos(int newPos){
+		currentPosition = newPos;
 	}
 }

@@ -6,7 +6,8 @@ public class BinAuto extends CommandGroup {
 
 	public BinAuto() {
 		addSequential(new CalibrateElevator());
-		addSequential(new DriveStraight(0.25));
-		addSequential(new DriveStraight(-0.25));			
+		addSequential(new IncreaseElevatorLevel(1));
+		addSequential(new IncreaseElevatorLevel(0));
+		addSequential(new DriveStraight(-3.3));
 	}
 }
