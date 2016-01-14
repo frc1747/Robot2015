@@ -27,8 +27,8 @@ public class DriveTrain extends Subsystem {
 		rightCim = new CANTalon(RobotMap.RIGHT_CIM_ID);
 		SmartDashboard.putNumber("Turn Multiplier", 0.5);
 		SmartDashboard.putNumber("Drive Multiplier", 0.8);
-		turnMultiplier = 0.5;
-		driveMultiplier = 0.8;
+		turnMultiplier = 0.45;
+		driveMultiplier = 0.75;
 	}
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {

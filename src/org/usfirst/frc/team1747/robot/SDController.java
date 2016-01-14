@@ -16,6 +16,8 @@ public class SDController {
 		oi = Robot.getOI();
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putNumber("Dampening Constant", .8);
+		SmartDashboard.putNumber("Left Damper", 0.56);
+		SmartDashboard.putNumber("Right Damper", 0.3);
 	}
 
 	public void init() {
@@ -37,6 +39,14 @@ public class SDController {
 
 	public double getElevatorD() {
 		return SmartDashboard.getNumber("Elevator D");
+	}
+	
+	public double getRightDamper() {
+		return SmartDashboard.getNumber("Right Damper");
+	}
+	
+	public double getLeftDamper() {
+		return SmartDashboard.getNumber("Left Damper");
 	}
 
 	public void refresh() {
